@@ -9,20 +9,22 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class ToDoStepDefinition extends TestRunner {
+public class ToDoStepDefinition {
 
-	public RemoteWebDriver driver = this.connection;
+	public RemoteWebDriver driver = Hook.driver;
 
 	
 	@Given("^user is on home Page$")
 	public void user_already_on_home_page() {
-		System.out.println(driver.getCapabilities());
-		driver.get("https://lambdatest.github.io/sample-todo-app/");
+		System.out.println("I am on home get url"+ driver.getSessionId());
+        driver.get("https://lambdatest.github.io/sample-todo-app/");
+        System.out.println(driver.getCapabilities());
 
 	}
 
 	@When("^select First Item$")
 	public void select_first_item() {
+        System.out.println("I am on selecting first item"+ driver.getSessionId());
 		driver.findElement(By.name("li1")).click();
 	}
 

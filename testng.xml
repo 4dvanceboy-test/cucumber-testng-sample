@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="BDD Test Suite" verbose="1" parallel="tests"
-	thread-count="3" >
+	thread-count="100" >
     <test name="WIN10TEST" annotations="JDK"
 		preserve-order="true">
-        <parameter name="browser" value="Firefox"/>
-        <parameter name="version" value="latest"/>
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="version" value="72"/>
         <parameter name="platform" value="Windows"/>
         <classes>
             <class name="MyRunner.TestRunner" />
@@ -13,18 +13,18 @@
     </test> <!-- Test -->
     <test name="WIN8TEST" annotations="JDK"
 		preserve-order="true">
-        <parameter name="browser" value="chrome"/>
-        <parameter name="version" value="latest"/>
-        <parameter name="platform" value="Windows 10"/>
+        <parameter name="browser" value="Chrome"/>
+        <parameter name="version" value="72"/>
+        <parameter name="platform" value="Windows"/>
         <classes>
             <class name="MyRunner.TestRunner" />
         </classes>
     </test> <!-- Test -->
     <test name="MACTEST" annotations="JDK"
 		preserve-order="true">
-        <parameter name="browser" value="Microsoft Edge"/>
-        <parameter name="version" value="latest"/>
-        <parameter name="platform" value="Windows 10"/>
+       <parameter name="browser" value="Chrome"/>
+        <parameter name="version" value="72"/>
+        <parameter name="platform" value="Windows"/>
         <classes>
           <class name="MyRunner.TestRunner" />
         </classes>
