@@ -11,36 +11,36 @@ import cucumber.api.java.en.When;
 
 public class ToDoStepDefinition extends TestRunner {
 
-	public RemoteWebDriver driver = this.connection;
+	//public RemoteWebDriver driver = this.connection;
 
 	
 	@Given("^user is on home Page$")
 	public void user_already_on_home_page() {
-		System.out.println(driver.getCapabilities());
-		driver.get("https://lambdatest.github.io/sample-todo-app/");
+		//System.out.println(driver.getCapabilities());
+		driver.get().get("https://lambdatest.github.io/sample-todo-app/");
 
 	}
 
 	@When("^select First Item$")
 	public void select_first_item() {
-		driver.findElement(By.name("li1")).click();
+		driver.get().findElement(By.name("li1")).click();
 	}
 
 	@Then("^select second item$")
 	public void select_second_item() {
-		driver.findElement(By.name("li2")).click();
+		driver.get().findElement(By.name("li2")).click();
 	}
 
 	@Then("^add new item$")
 	public void add_new_item() {
-		driver.findElement(By.id("sampletodotext")).clear();
-		driver.findElement(By.id("sampletodotext")).sendKeys("Yey, Let's add it to list");
-		driver.findElement(By.id("addbutton")).click();
+		driver.get().findElement(By.id("sampletodotext")).clear();
+		driver.get().findElement(By.id("sampletodotext")).sendKeys("Yey, Let's add it to list");
+		driver.get().findElement(By.id("addbutton")).click();
 	}
 
 	@Then("^verify added item$")
 	public void verify_added_item() {
-		String item = driver.findElement(By.xpath("/html/body/div/div/div/ul/li[6]/span")).getText();
+        String item = driver.get().findElement(By.xpath("/html/body/div/div/div/ul/li[6]/span")).getText();
 		Assert.assertTrue(item.contains("Yey, Let's add it to list"));
 	}
 

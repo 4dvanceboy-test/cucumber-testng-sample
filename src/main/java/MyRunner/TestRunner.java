@@ -30,8 +30,9 @@ import cucumber.api.testng.TestNGCucumberRunner;
 public class TestRunner {
 	
     private TestNGCucumberRunner testNGCucumberRunner;
+    //public static RemoteWebDriver connection;
   
-    public static RemoteWebDriver connection;
+    public static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
     
     @BeforeClass(alwaysRun = true)
     public void setUpCucumber() {
@@ -41,6 +42,7 @@ public class TestRunner {
     @BeforeMethod(alwaysRun = true)
     @Parameters({ "browser", "version", "platform" })
     public void setUpClass(String browser, String version, String platform) throws Exception {
+      //   testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
 
     		String username = System.getenv("LT_USERNAME") == null ? "YOUR LT_USERNAME" : System.getenv("LT_USERNAME"); 
     		String accesskey = System.getenv("LT_ACCESS_KEY") == null ? "YOUR LT_ACCESS_KEY" : System.getenv("LT_ACCESS_KEY"); 
@@ -50,21 +52,21 @@ public class TestRunner {
     		capability.setCapability(CapabilityType.VERSION,version);
     		capability.setCapability(CapabilityType.PLATFORM, platform);
     		    		
-    		capability.setCapability("build", "Cucumber Sample Build");
+    		capability.setCapability("build", "Cucumber Sample Build 12");
     		
-    		capability.setCapability("network", true);
-    		capability.setCapability("video", true);
-    		capability.setCapability("console", true);
-    		capability.setCapability("visual", true);
+    		// capability.setCapability("network", true);
+    		// capability.setCapability("video", true);
+    		// capability.setCapability("console", true);
+    		// capability.setCapability("visual", true);
 
     		String gridURL = "https://" + username + ":" + accesskey + "@hub.lambdatest.com/wd/hub";
     		System.out.println(gridURL);
-    		connection = new RemoteWebDriver(new URL(gridURL), capability);
-    		System.out.println(capability);
-    		System.out.println(connection);
+    		driver.set(new RemoteWebDriver(new URL(gridURL), capability));
+    		//System.out.println(capability);
+    	//	System.out.println(connection);
 }
  
-    @Test(groups = "cucumber", description = "Runs Cucumber Feature", dataProvider = "features")
+    @Test(groups = "cucumber", description = "Runs Cucumber Feature", dataProvider = "features",invocationCount = 3)
     public void feature(CucumberFeatureWrapper cucumberFeature) {
         testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
     }
@@ -76,6 +78,7 @@ public class TestRunner {
  
     @AfterClass(alwaysRun = true)
     public void tearDownClass() throws Exception {
+        //connection.quit();
         testNGCucumberRunner.finish();
     }
 }
